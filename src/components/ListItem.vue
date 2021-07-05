@@ -1,5 +1,5 @@
 <template>
-    <ion-item>
+    <ion-item :href="url" :id="computedId('item')" detail>
         <ion-label>
             <ion-text>
                 <h1 :id="computedId('title')">
@@ -24,6 +24,11 @@
         },
         props: {
             item: Object
+        },
+        computed: {
+            url() {
+                return '/chart/id/' + this.item.id
+            }
         },
         methods: {
             computedId(type) {
