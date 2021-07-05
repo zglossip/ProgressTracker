@@ -1,0 +1,7 @@
+{
+  "name": "ProgressTracker",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
