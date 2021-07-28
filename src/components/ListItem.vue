@@ -18,7 +18,8 @@
 <script>
     import { defineComponent } from 'vue';
     import { IonItem, IonLabel, IonText } from '@ionic/vue';
-    export default defineComponent ( {
+    import { generateId } from '@/util/util'
+    export default defineComponent({
         components: {
             IonItem, IonLabel, IonText
         },
@@ -33,7 +34,7 @@
         methods: {
             computedId(type) {
                 if (this.item)
-                    return 'pt-' + type + '-' + this.item.id
+                    return generateId('list-item', type, this.item.id)
                 else
                     return '';
             }

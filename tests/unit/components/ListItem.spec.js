@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import ListItem from '@/components/ListItem.vue'
-import { nextTick} from 'vue'
+import { generateId } from '@/util/util'
 
 describe('ListItem.vue', () => {
     let wrapper
@@ -12,21 +12,18 @@ describe('ListItem.vue', () => {
         }
     }
 
-    const testText = type => {
-        const text = wrapper.find('#pt-' + type + '-' + propsData.item.id).text();
-        expect(text).toMatch(propsData.item[type]);
-    }
-
     beforeEach(() => {
         wrapper = mount(ListItem, { propsData });
     })
 
     describe('Render', () => {
         it('Renders title', () => {
-            testText('title')
+            const text = wrapper.find('#' + generateId('list-item', 'title', propsData.item.id)).text()
+            expect(text).toMatch(propsData.item.title)
         })
         it('Renders description', () => {
-            testText('description')
+            const text = wrapper.find('#' + generateId('list-item', 'description', propsData.item.id)).text()
+            expect(text).toMatch(propsData.item.description)
         })
     })
 
