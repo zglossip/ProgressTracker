@@ -2,67 +2,91 @@
   <ion-page>
     <ion-header :translucent="true">
       <ion-toolbar>
-        <ion-title>Blank</ion-title>
+        <ion-title :id="titleId">Progress Tracker</ion-title>
       </ion-toolbar>
     </ion-header>
     
     <ion-content :fullscreen="true">
       <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large">Blank</ion-title>
+          <ion-title size="large">Progress Tracker</ion-title>
         </ion-toolbar>
       </ion-header>
     
       <div id="container">
-        <strong>Ready to create an app?</strong>
-        <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+          <ion-list>
+              <ion-item v-if="charts.length === 0">
+                  <ion-label :id="emptyId">
+                      No charts found.
+                  </ion-label>
+              </ion-item>
+              <list-item v-else v-for="item in charts" :item="item" :key="item.id"></list-item>
+          </ion-list>
+          <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+              <ion-fab-button :id="addId">
+                  <ion-icon :icon="add"></ion-icon>
+              </ion-fab-button>
+              <ion-fab-list side="start">
+                  <ion-fab-button href="/addEntry"><ion-icon :icon="create"></ion-icon></ion-fab-button>
+                  <ion-fab-button href="/addChart"><ion-icon :icon="trendingUp"></ion-icon></ion-fab-button>
+              </ion-fab-list>
+          </ion-fab>
       </div>
     </ion-content>
   </ion-page>
 </template>
 
 <script>
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
-import { defineComponent } from 'vue';
+    import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonLabel, IonItem, IonFab, IonFabButton, IonIcon, IonFabList } from '@ionic/vue';
+    import { defineComponent } from 'vue';
+    import ListItem from '@/components/ListItem';
+    import { generateId } from '@/util/util'
+    import { add, create, trendingUp } from 'ionicons/icons';
 
 export default defineComponent({
-  name: 'Home',
-  components: {
-    IonContent,
-    IonHeader,
-    IonPage,
-    IonTitle,
-    IonToolbar
-  }
+    name: 'Home',
+    components: {
+        IonContent,
+        IonHeader,
+        IonPage,
+        IonTitle,
+        IonToolbar,
+        IonList,
+        ListItem,
+        IonLabel,
+        IonItem,
+        IonFab,
+        IonFabButton,
+        IonIcon,
+        IonFabList
+    },
+    data() {
+        return {
+            charts: [{
+                id: 1,
+                title: 'Test Name',
+                description: 'This is a test description'
+            }]
+        }
+    },
+    computed: {
+        titleId() {
+            return generateId('home', 'title')
+        },
+        emptyId() {
+            return generateId('home', 'empty')
+        },
+        addId() {
+            return generateId('home', 'add-button')
+        }
+    },
+    methods: {
+        createChart() {
+
+        }
+    },
+    setup() {
+        return { add, create, trendingUp }
+    }
 });
 </script>
-
-<style scoped>
-#container {
-  text-align: center;
-  
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
-}
-
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-  
-  color: #8c8c8c;
-  
-  margin: 0;
-}
-
-#container a {
-  text-decoration: none;
-}
-</style>
