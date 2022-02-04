@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import Home from '../views/Home.vue'
+import Chart from '../views/Chart.vue'
 
 const routes = [
   {
@@ -10,7 +11,12 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: Home
-  }
+    },
+    {
+        path: '/chart/id/:id',
+        name: 'Chart',
+        component: Chart
+    }
 ]
 
 const router = createRouter({
